@@ -134,21 +134,21 @@ class RaceSuite extends FunSuite with MockFactory {
     assert(records(1).teamNo == 2)
     assert(records(1).finalSpeed == 47.22222222222222)
     assert(records(1).elapsedTime == 14)
-    assert(records(1).distance == 182.44444444444446)
+    assert(records(1).distance == 182.36882716049382)
 
     assert(records(2).teamNo == 3)
     assert(records(2).finalSpeed == 50)
-    assert(records(2).elapsedTime == 14)
-    assert(records(2).distance == 100)
+    assert(records(2).elapsedTime == 16)
+    assert(records(2).distance == 191.66666666666669)
 
     assert(records(3).teamNo == 4)
     assert(records(3).finalSpeed == 52.77777777777778)
     assert(records(3).elapsedTime == 18)
-    assert(records(3).distance == 183.77777777777777)
+    assert(records(3).distance == 175.9066358024691)
 
     assert(records(4).teamNo == 5)
     assert(records(4).finalSpeed == 55.55555555555556)
     assert(records(4).elapsedTime == 20)
-    assert(records(4).distance == 208.88888888888883)
+    assert(records(4).distance == 207.90123456790118)
   }
 }

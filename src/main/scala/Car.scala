@@ -81,17 +81,42 @@ class Car(private val _teamNo: Int,
   def run(elapsedTime: Double) = {
     assert(elapsedTime >= 0)
 
+    var distance: Double = 0
+    var endSpeed: Double = 0
+
+    /**
+     * If current speed has not reached the top speed yet, we need to calculate the distance separately.
+     * First, calculate the distance with acceleration. Then calculate the distance with full speed.
+     */
     if (_currentSpeed < topSpeed) {
-      val distance = _currentSpeed * elapsedTime + (1d / 2d) * _acceleration * elapsedTime * elapsedTime
-      val endSpeed = _currentSpeed + _acceleration * elapsedTime
-      adjustSpeed(endSpeed);
-      _currentPosition = _currentPosition + distance
+      val timeToReachTopSpeed = (topSpeed - _currentSpeed) / acceleration
+      val accelerationTime = math.min(timeToReachTopSpeed, elapsedTime)
+
+      /**
+       * Calculate the acceleration part
+       */
+      distance = _currentSpeed * accelerationTime + (1d / 2d) * _acceleration * accelerationTime * accelerationTime
+      endSpeed = _currentSpeed + _acceleration * accelerationTime
+
+      /**
+       * Calculate the full speed part if any
+       */
+      val timeLeft = elapsedTime - accelerationTime
+      if (timeLeft > 0) {
+        distance = distance + topSpeed * timeLeft
+        endSpeed = topSpeed
+      }
     }
     else {
-      val distance = _currentSpeed * elapsedTime
-      _currentPosition = _currentPosition + distance
+      /**
+       * Calculate with the top speed only
+       */
+      distance = _currentSpeed * elapsedTime
+      endSpeed = topSpeed
     }
 
+    adjustSpeed(endSpeed);
+    _currentPosition = _currentPosition + distance
 
     if (Debug) printf("Team %s run %ss. speed=%s pos=%s\n", _teamNo, elapsedTime, _currentSpeed, _currentPosition)
   }

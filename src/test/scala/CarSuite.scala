@@ -93,6 +93,8 @@ class CarSuite extends FunSuite {
     }
   }
 
+
+
   test("run for certain period of time") {
     val car: Car = new Car(1, 2, 100, 0, 10)
 
@@ -109,13 +111,17 @@ class CarSuite extends FunSuite {
     assert(car.currentPosition == 24)
 
     car.run(10)
-    // Reached the top speed
+    // Reached the top speed after 7 seconds
     assert(car.currentSpeed == 100 * 1000 / 3600d)
-    assert(car.currentPosition == 264)
+    assert(car.currentPosition == 254.32098765432102)
+
+    car.run(10)
+    assert(car.currentSpeed == 100 * 1000 / 3600d)
+    assert(car.currentPosition == 532.0987654320988)
 
     car.run(0)
     assert(car.currentSpeed == 100 * 1000 / 3600d)
-    assert(car.currentPosition == 264)
+    assert(car.currentPosition == 532.0987654320988)
 
     assertThrows[AssertionError] {
       car.run(-1)
